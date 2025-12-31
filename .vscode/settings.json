@@ -1,0 +1,17 @@
+{
+  "liveServer.settings.root": "/public",
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.NoBrowser": false,
+  "liveServer.settings.ignoreFiles": [
+    ".vscode/**",
+    "**/*.scss",
+    "**/*.sass",
+    "**/*.ts",
+    "**/node_modules/**",
+    "**/.*"
+  ],
+  "liveServer.settings.wait": 100,
+  "liveServer.settings.fullReload": false
+}
