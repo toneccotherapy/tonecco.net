@@ -66,8 +66,8 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         sender: {
-          name: 'tonecco therapy ウェブサイト',
-          email: 'tonecco.therapy@gmail.com',
+          name: 'とねっこ 藤本',
+          email: 'info@tonecco.net',
         },
         to: [{ email: 'tonecco.therapy@gmail.com', name: 'tonecco therapy' }],
         replyTo: { email: email.trim(), name: name.trim() },
