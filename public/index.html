@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <!-- メンテナンス中：maintenance.html へリダイレクト。公開再開時はこの script タグを削除してください -->
-  <script>location.replace('/maintenance.html');</script>
+  <!-- <script>location.replace('/maintenance.html');</script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="とねっこ - 藤本浩二のウェブサイト。タイ古式マッサージセラピスト兼ウェブ制作。手を動かす暮らし。">
   <meta name="keywords" content="タイ古式マッサージ, ウェブ制作, とねっこ, 藤本浩二, とねぐら">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <title>とねっこ | あなたのそばで、手を動かす人。</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤲</text></svg>">
+  <link rel="icon" href="/assets/images/tonecco_logo_v1.png" type="image/png">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,11 +160,13 @@
   <!-- ===================== NAVIGATION ===================== -->
   <nav id="navbar" aria-label="メインナビゲーション" class="fixed top-0 left-0 right-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-serif text-xl font-bold text-white" id="nav-logo">とねっこ</a>
+      <a href="#" id="nav-logo">
+        <img src="/assets/images/tonecco_logo_v1.png" alt="とねっこ" class="h-10 w-auto">
+      </a>
 
       <!-- Desktop -->
       <ul class="hidden lg:flex items-center gap-8 text-sm text-white" id="nav-desktop">
-        <li><a href="#about"      class="nav-link">について</a></li>
+        <li><a href="#about"      class="nav-link">私について</a></li>
         <li><a href="#services"   class="nav-link">サービス</a></li>
         <li><a href="#lifestyle"  class="nav-link">暮らし</a></li>
         <li><a href="#column"     class="nav-link">読みもの</a></li>
@@ -186,7 +188,7 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden lg:hidden" aria-hidden="true">
       <ul class="flex flex-col gap-1 px-6 py-4 bg-deepbrown/95 backdrop-blur-md text-white text-sm border-t border-white/10">
-        <li><a href="#about"     class="block py-3 border-b border-white/10" onclick="closeMobile()">について</a></li>
+        <li><a href="#about"     class="block py-3 border-b border-white/10" onclick="closeMobile()">私について</a></li>
         <li><a href="#services"  class="block py-3 border-b border-white/10" onclick="closeMobile()">サービス</a></li>
         <li><a href="#lifestyle" class="block py-3 border-b border-white/10" onclick="closeMobile()">暮らし</a></li>
         <li><a href="#column"    class="block py-3 border-b border-white/10" onclick="closeMobile()">読みもの</a></li>
@@ -205,9 +207,6 @@
       <div class="absolute inset-0 hero-overlay"></div>
 
       <div class="relative z-10 text-center text-white px-6 max-w-3xl mx-auto">
-        <p class="text-xs tracking-[0.4em] mb-6 text-cream/70 animate__animated animate__fadeIn animate__delay-1s uppercase">
-          Tonecco / 藤本浩二
-        </p>
         <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate__animated animate__fadeInUp">
           あなたのそばで、<br>手を動かす人。
         </h1>
@@ -215,13 +214,9 @@
           マッサージも、Web制作も、暮らしの手仕事も。
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-2s">
-          <a href="#contact"
+          <a href="https://one-page.tonecco.net/" target="_blank" rel="noopener noreferrer"
              class="px-8 py-3.5 bg-sage text-white rounded-full font-medium hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-sage/30">
             ウェブ制作を依頼する
-          </a>
-          <a href="#about"
-             class="px-8 py-3.5 border border-white/60 text-white rounded-full font-medium hover:bg-white/10 transition-all">
-            もっと見る
           </a>
         </div>
       </div>
@@ -238,10 +233,10 @@
         <!-- Profile block -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
           <div data-aos="fade-right" class="relative">
-            <img src="https://images.unsplash.com/photo-1611073615830-9f76902c10fe?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx0aGFpJTIwbWFzc2FnZSUyMGhhbmRzJTIwcmVsYXhhdGlvbnxlbnwwfDB8fHwxNzc4Mjk2ODIyfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+            <img src="/assets/images/P1040830.JPG"
                  alt="施術の様子"
                  loading="lazy" decoding="async"
-                 class="w-full h-80 lg:h-[420px] object-cover rounded-2xl shadow-xl">
+                 class="w-full h-80 lg:h-[420px] object-cover object-top rounded-2xl shadow-xl">
             <div class="absolute -bottom-4 -right-4 w-28 h-28 bg-tan/15 rounded-2xl -z-10"></div>
             <div class="absolute -top-3 -left-3 w-16 h-16 bg-sage/15 rounded-xl -z-10"></div>
           </div>
@@ -256,7 +251,7 @@
               マッサージという「手で触れる仕事」と、コードという「手で形にする仕事」。どちらも、相手の話をじっくり聞いて、丁寧に手を動かすことが原点です。
             </p>
             <p class="text-deepbrown/80 leading-loose">
-              石鹸を手でこね、プリンを丁寧に仕込み、木材を削って家具を作る。そういう「手が喜ぶ時間」を大切にしながら日々を送っています。
+              たくさんの失敗を重ねながらプリンを作ったり、木材を削って家具を作ったり。そういう「手が喜ぶ時間」を大切にしながら日々を送っています。
             </p>
           </div>
         </div>
@@ -274,7 +269,7 @@
             <p>タイ古式マッサージは、「着衣のまま受けられるヨガ」とも呼ばれます。施術者が全身を使って圧をかけ、ストレッチを組み合わせることで、筋肉の深部にアプローチします。</p>
             <p>一般的なオイルマッサージが「表面の緊張をほぐす」ものだとすれば、タイ古式は「体の構造ごと整える」ようなイメージです。股関節まわりの硬さ、背中のこわばり、足首の重さ——こうした「なんとなく不調」の原因は、日常の姿勢や動きのクセが積み重なったものです。タイ古式はそこに直接働きかけます。</p>
             <p>施術を受けた後、多くの方が「体が軽い」「呼吸がしやすい」と感じてくださいます。それは筋肉が柔らかくなるだけでなく、自律神経が整い、内側からリラックスしているから。</p>
-            <p>私がセラピストを続けているのは、この「変化の瞬間」に立ち会えるからかもしれません。施術台の上で、ふっと力が抜けるあの瞬間。言葉にならないけれど、確かに何かが変わっていく。そういう時間を、一緒に作っていきたいと思っています。</p>
+            <p>私がセラピストをやっている理由は、この「変化の瞬間」に立ち会えるからかもしれないですね。マットの上で、お客様がふっと力が抜けるあの瞬間。言葉にならないけれど、確かに何かが変わっていく。そういう時間を、一緒に作っていきたいと思っています。</p>
             <p class="text-right text-sm text-tan italic">— 藤本浩二</p>
           </div>
           <div class="mt-8 pt-6 border-t border-cream">
@@ -305,7 +300,7 @@
               <i data-lucide="hand" class="w-6 h-6 text-tan"></i>
             </div>
             <h3 class="font-serif text-xl font-bold text-deepbrown mb-3">タイ古式マッサージ</h3>
-            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">着衣のまま全身をほぐす、体が喜ぶ時間を。とねぐらにてお待ちしています。</p>
+            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">心と体が悦ぶ時間を提供いたします。こちらから【ネット予約】をしてお越しください。</p>
             <span class="text-xs text-tan/80 flex items-center gap-1">
               tone-gura.tonecco.net
               <i data-lucide="external-link" class="w-3 h-3"></i>
@@ -317,9 +312,9 @@
              data-aos="fade-up" data-aos-delay="100"
              class="group bg-deepbrown rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
             <!-- 受付中バッジ -->
-            <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-sage/20 px-2.5 py-1 rounded-full">
-              <span class="w-1.5 h-1.5 bg-sage rounded-full pulse-dot"></span>
-              <span class="text-xs text-sage font-medium">無料試作品 受付中</span>
+            <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-white/20 px-2.5 py-1 rounded-full">
+              <span class="w-1.5 h-1.5 bg-white rounded-full pulse-dot"></span>
+              <span class="text-xs text-white font-medium">無料試作品 受付中</span>
             </div>
             <div class="w-12 h-12 bg-cream/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cream/20 transition-colors">
               <i data-lucide="monitor" class="w-6 h-6 text-cream"></i>
@@ -340,7 +335,7 @@
               <i data-lucide="utensils" class="w-6 h-6 text-sage"></i>
             </div>
             <h3 class="font-serif text-xl font-bold text-deepbrown mb-3">じぶんフィットレシピ</h3>
-            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">自分の体に合うよう調整した、とっておきのレシピを公開しています。</p>
+            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">じぶんにフィットした使いやすくて、作りやすくて、見やすくて、美味しいレシピサイトを目指しています。</p>
             <span class="text-xs text-tan/80 flex items-center gap-1">
               recipe.tonecco.net
               <i data-lucide="external-link" class="w-3 h-3"></i>
@@ -366,8 +361,8 @@
             <div class="w-16 h-16 bg-cream rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
               <i data-lucide="coffee" class="w-7 h-7 text-brown"></i>
             </div>
-            <h3 class="font-serif text-lg font-bold text-deepbrown mb-3">マッサージ後に<br>対面で相談できる</h3>
-            <p class="text-sm text-deepbrown/70 leading-relaxed">体がほぐれたリラックス状態で、じっくりお話できます。「こんなサイトが欲しい」という言葉を、その場で引き出します。</p>
+            <h3 class="font-serif text-lg font-bold text-deepbrown mb-3">来る理由は、マッサージでも<br>相談だけでもいい</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed">マッサージを受けた後でも、相談だけでも、どちらもOK。気軽に話せる場所が、ここにあります。</p>
           </div>
 
           <div data-aos="fade-up" data-aos-delay="100" class="text-center px-4">
@@ -605,8 +600,7 @@
           <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Contact</p>
           <h2 class="font-serif text-3xl font-bold text-deepbrown section-title">お問い合わせ</h2>
           <p class="mt-6 text-deepbrown/70 leading-relaxed text-sm">
-            ウェブ制作のご相談、マッサージのご予約、その他なんでもお気軽にどうぞ。<br>
-            2営業日以内にご返信いたします。
+            タイ古式マッサージやウェブ制作のご相談、その他なんでもお気軽にどうぞ。
           </p>
         </div>
 
@@ -665,12 +659,15 @@
     <div class="max-w-5xl mx-auto">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         <div>
-          <p class="font-serif text-2xl font-bold text-cream mb-2">とねっこ</p>
+          <div class="flex items-center gap-3 mb-2">
+            <img src="/assets/images/tonecco_logo_v1.png" alt="とねっこロゴ" class="h-8 w-auto">
+            <p class="font-serif text-2xl font-bold text-cream">とねっこ</p>
+          </div>
           <p class="text-sm leading-relaxed">あなたのそばで、手を動かす人。</p>
         </div>
         <nav aria-label="フッターナビゲーション">
           <ul class="flex flex-wrap gap-6 text-sm">
-            <li><a href="#about"      class="hover:text-cream transition-colors">について</a></li>
+            <li><a href="#about"      class="hover:text-cream transition-colors">私について</a></li>
             <li><a href="#services"   class="hover:text-cream transition-colors">サービス</a></li>
             <li><a href="#lifestyle"  class="hover:text-cream transition-colors">暮らし</a></li>
             <li><a href="#column"     class="hover:text-cream transition-colors">読みもの</a></li>
@@ -715,10 +712,10 @@
       soap: {
         category: 'Lifestyle',
         title: '手作り石鹸のこと',
-        body: `<p>石鹸を作り始めたのは、数年前のことです。市販の石鹸に含まれる成分が気になり始め、「じゃあ自分で作ってみよう」と思ったのがきっかけでした。</p>
-<p>石鹸は、苛性ソーダと植物オイルを混ぜ合わせるところから始まります。最初は化学反応の怖さもありましたが、慣れてくると「どのオイルを配合するか」「どんな香りにするか」を考えること自体が楽しくなってきました。</p>
-<p>できあがった石鹸を使い始められるのは、仕込みから1〜2ヶ月後。熟成を待つこの時間も、石鹸づくりの一部です。お風呂で使い始めると、肌がしっとりして「悦んでいる」感じがする。その充足感が、また次を作りたくなる動機になっています。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+        body: `<p>石鹸を作り始めたのは、20年ほど前のことです。タイ古式マッサージのセラピストとして仕事をしていて、施術後に市販の石鹸を使っていると手が荒れるようになり、気になったのでいろいろ調べていたら「じゃあ自分で作ってみよう」と思ったのがきっかけでした。</p>
+<p>石鹸は、苛性ソーダとオイルと精製水を混ぜ合わせるところから始まります。最初はなかなか手に入らない苛性ソーダとか化学反応の怖さとか、敷居はものすごく高くもありましたが、慣れてくると「どのオイルを配合するか」「どんな香りにするか」を考えること自体が楽しくなってきました。</p>
+<p>できあがった石鹸を使い始められるのは、仕込みから1〜2ヶ月後。熟成を待つこの時間も好きで、熟成中の石鹸の近くを通るとふわっと精油と石鹸の香りがするんですよ。</p>
+<p>お風呂で自作の石鹸を使うと、肌がしっとりして「悦んでいる」感じがします。その充足感が、また次を作りたくなる動機になっています。</p>`
       },
       meditation: {
         category: 'Lifestyle',
@@ -726,17 +723,16 @@
         body: `<p>アーナーパーナサティとは、呼吸に意識を向けることで「今、ここ」に戻ってくる瞑想の実践です。パーリ語で「入る息・出る息への気づき」という意味があります。</p>
 <p>やることはシンプルで、ただ呼吸を観察するだけ。吸う息が鼻の入り口を通る感覚、胸やお腹が膨らむ感覚、息が出ていく感覚……それだけに集中します。</p>
 <p>やってみると、いかに自分の思考があちこちに飛んでいるかがわかります。でもそれに気づいた瞬間、また呼吸に戻ればいい。気づくことと、戻ること——それを繰り返すだけです。</p>
-<p>マッサージの仕事に通じるものがある気がしています。どちらも「今、目の前にあるものに、ちゃんと触れること」が大事だから。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+<p>マッサージの仕事に通じるものがある気がしています。どちらも「今、目の前にあるものに、ちゃんと触れること」が大事だから。</p>`
       },
       pudding: {
         category: 'Lifestyle',
         title: 'プリン作りのこと',
-        body: `<p>子どもの頃からプリンが好きでした。あの「つるん」とした食感と、カラメルのほろ苦さ。「いつか自分で作れるようになりたい」と漠然と思い続けて、ようやく挑戦したのはここ数年のことです。</p>
-<p>プリン作りで大事なのは、温度管理です。卵液をゆっくり加熱しすぎると「す」が入る（気泡ができてザラザラになる）。蒸し時間が長すぎてもだめ。最初は何度も失敗しました。</p>
-<p>でも、うまくいったときのあの「つるん」は格別です。市販のものとは違う、素材の味がするプリン。自分で作ったということが、さらに美味しくしてくれる。</p>
-<p>今は卵の配合や牛乳と生クリームの比率を少しずつ変えながら、「自分の好きなプリン」を研究中です。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+        body: `<p>私は子どもの頃からプリンが好きでした。あの「つるん」とした食感と、カラメルのほろ苦さ。「いつか自分で作れるようになりたい」と漠然と思い続けていたところ、妻が持っていた落合務さんのレシピ本を見て挑戦しよう、と思ったのは20年ほど前のことです。</p>
+<p>最初は何度も失敗しました。「す」が入ったり（気泡ができてザラザラになる）硬すぎたり、柔らかすぎたり。私はパティシエではないので、はっきりしたことは言えませんが、プリン作りで大事なのは、「温度管理」と「たまごの選定」だと思っています。</p>
+<p>上品な砂糖、高級な牛乳など、いろんな組み合わせでプリンを作ってきましたが、つまるところ「牛乳と砂糖は市販のもので。たまごはとにかく美味しいものを。」というところに落ち着きつつあります。</p>
+<p>市販のものとは違う、ちゃんと素材の味がするプリン。自分で作ったということが、さらに美味しくしてくれる。今は卵の銘柄を変えながら、「自分の好きなプリン」を研究中です。</p>
+`
       },
       yoga: {
         category: 'Lifestyle',
@@ -745,25 +741,25 @@
 <p>最初はポーズの形を追うことに必死でしたが、続けるうちに「呼吸と動きを合わせること」の面白さがわかってきました。息を吐きながら体を前に倒す、吸いながら背筋を伸ばす——その繰り返しの中で、体の感覚がどんどん細かくなっていく。</p>
 <p>ヨガとアーナーパーナサティ（呼吸の瞑想）は、私の中で自然につながっています。どちらも「今の体・今の息」に意識を向けることが基本にあるから。</p>
 <p>毎朝続けるほど律儀ではないですが、体が重いと感じた朝には自然とマットを広げています。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+`
       },
       light: {
         category: 'Lifestyle',
         title: 'あかり作りのこと',
-        body: `<p>光が好きです。特に、やわらかくてあたたかい光が。</p>
-<p>「あかり作り」といっても、大げさなものではありません。キャンドルを作ったり、照明器具を手作りしたり、既製品のシェードに細工をしたり。「この部屋に、どんな光が合うか」を考えながら手を動かす時間です。</p>
-<p>光は、空間の印象を大きく変えます。同じ部屋でも、光の強さや色温度、当て方が変わるだけで、まったく違う雰囲気になる。それが面白くて、気づけば自分でコントロールしたくなっていました。</p>
-<p>施術室の照明も、何度も調整しました。マッサージ中の「あかり」は、リラックスを助ける重要な要素だと思っているから。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+        body: `<p>私は光が好きです。特に、やわらかくてあたたかい光が。</p>
+<p>「あかり作り」といっても、大げさなものではありません。照明器具を手作りしたり、既製品のシェードに細工をしたり。「この部屋に、どんな光が合うか」を考えながら手を動かす時間です。残念ながら、私はどうやら「絵心」にとぼしいところが現在の課題となっています。</p>
+<p>しかし、光は空間の印象を大きく変えます。同じ部屋でも、光の強さや色温度、当て方が変わるだけで、まったく違う雰囲気になる。それが面白くて、気づけば自分でコントロールしたくなっていました。</p>
+<p>施術ルームの照明も、私がデザインした「あかり」で、お客様にくつろいでいただきたいです。</p>
+`
       },
       diy: {
         category: 'Lifestyle',
         title: 'DIY（家具づくり）のこと',
         body: `<p>木材を手で触るのが好きです。サンドペーパーで磨いていくと、ざらざらがなくなってすべすべになる。その過程が、なんとも言えず気持ちいい。</p>
-<p>最初に作ったのは小さな棚でした。設計から始まり、木材を選んで、切って、組み立てて、仕上げる。一つひとつの工程に集中していると、他のことを考える余裕がなくなります。それが心地よかった。</p>
-<p>市販の家具には出せない「自分のサイズ感」があります。「もう少し低かったら」「もう少し奥行きがあったら」——そういうわがままを、全部叶えてくれるのが手作りです。</p>
+<p>最初に作ったのは10年以上前に作った「ダイニングこたつ」でした。設計から始まり、木材を選んで、切って、組み立てて、仕上げる。一つひとつの工程に集中していると、他のことを考える余裕がなくなります。それが心地よかった。（世間ではそれをゾーンに入った、と言ったりしますか？）</p>
+<p>市販の家具には出せない「自分のサイズ感」があります。「もう少し低かったら」「もう少し奥行きがあったら」——そういうわがままを、全部叶えてくれるのが手作りです。そして愛着が湧いてくるのも手作りならでは、です。</p>
 <p>ウェブ制作も似ています。テンプレートではなく、あなたに合ったものを作る。どちらも「ぴったりを探す」楽しさがある仕事だと思っています。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+`
       },
       // Column modals
       col1: {
@@ -773,7 +769,7 @@
 <p>最大の特徴は「着衣で行う」こと。オイルを使わず、施術者が手・肘・膝・足を使って全身にアプローチします。もう一つの特徴は「ストレッチを組み合わせる」こと。施術者がパートナーとなり、受ける人の体を無理なく動かしていきます。そのため「受け身のヨガ」とも呼ばれます。</p>
 <p>施術のベースにあるのは、タイ伝統医学の「セン」という概念。体の中を走るエネルギーラインのようなもので、そこへの圧刺激によって体のバランスを整えると考えられています。</p>
 <p>私がタイ古式を学んだのは、体を使う仕事をしながら自分自身の体も整えたかったから。施術を学ぶ中で、人の体の不思議さと可能性に何度も驚かされました。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+`
       },
       col2: {
         category: 'Column / 暮らし',
@@ -782,7 +778,7 @@
 <p>手仕事には、達成感の質が違う気がします。石鹸が固まる、プリンがうまくできる、木の棚が完成する——それは画面の向こうで起きることではなく、自分の手と体が直接生み出したもの。その実感は、デジタルの「いいね」では補えない何かがあります。</p>
 <p>また、手を動かしている間は「考えすぎない」時間になります。必要な動作に集中するから、余計な思考が静まる。それが結果的に、心のリセットになっている。</p>
 <p>効率を求めすぎる毎日の中で、あえて時間と手間をかけることに価値がある。そう感じています。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+`
       },
       col3: {
         category: 'Column / ウェブ制作',
@@ -791,7 +787,7 @@
 <p>私が思うのは、SNSとウェブサイトでは「役割が違う」ということです。SNSは「今日の私」を見てもらう場所。ウェブサイトは「いつでもある、あなたの場所」です。</p>
 <p>名刺を渡したお客様が、家に帰ってから検索する。その時に、ちゃんとした場所があるかどうか。SNSは流れていくけれど、ウェブサイトは残ります。</p>
 <p>特に「信頼が大事な商売」（施術、相談、オーダーメイド……）では、ウェブサイトが「この人は本物だ」という安心感を与えてくれます。私自身もそれを実感してから、ウェブ制作を始めました。</p>
-<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+`
       }
     };
   </script>
@@ -885,17 +881,18 @@
     const form   = document.getElementById('contact-form');
     const thanks = document.getElementById('contact-thanks');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let valid = true;
 
-      const name    = document.getElementById('name');
-      const email   = document.getElementById('email');
-      const message = document.getElementById('message');
+      const nameEl    = document.getElementById('name');
+      const emailEl   = document.getElementById('email');
+      const subjectEl = document.getElementById('subject');
+      const messageEl = document.getElementById('message');
 
       // Name
       const nameErr = document.getElementById('name-error');
-      if (!name.value.trim()) {
+      if (!nameEl.value.trim()) {
         nameErr.classList.remove('hidden');
         valid = false;
       } else {
@@ -905,7 +902,7 @@
       // Email
       const emailErr = document.getElementById('email-error');
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email.value.trim() || !emailRe.test(email.value)) {
+      if (!emailEl.value.trim() || !emailRe.test(emailEl.value)) {
         emailErr.classList.remove('hidden');
         valid = false;
       } else {
@@ -914,17 +911,52 @@
 
       // Message
       const msgErr = document.getElementById('message-error');
-      if (!message.value.trim()) {
+      if (!messageEl.value.trim()) {
         msgErr.classList.remove('hidden');
         valid = false;
       } else {
         msgErr.classList.add('hidden');
       }
 
-      if (valid) {
-        form.classList.add('hidden');
-        thanks.classList.remove('hidden');
-        lucide.createIcons();
+      if (!valid) return;
+
+      // 送信中の状態をボタンに反映
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:    nameEl.value.trim(),
+            email:   emailEl.value.trim(),
+            subject: subjectEl.value.trim(),
+            message: messageEl.value.trim(),
+          }),
+        });
+
+        if (res.ok) {
+          form.classList.add('hidden');
+          thanks.classList.remove('hidden');
+          lucide.createIcons();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        // エラー時はボタンを元に戻してメッセージ表示
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        const existing = document.getElementById('send-error');
+        if (!existing) {
+          const errEl = document.createElement('p');
+          errEl.id = 'send-error';
+          errEl.className = 'text-sm text-red-400 text-center mt-3';
+          errEl.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
+          submitBtn.insertAdjacentElement('afterend', errEl);
+        }
       }
     });
   </script>
