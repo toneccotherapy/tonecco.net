@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="とねっこ - 藤本浩二のウェブサイト。タイ古式マッサージセラピスト兼ウェブ制作。手を動かす暮らし。">
+  <meta name="keywords" content="タイ古式マッサージ, ウェブ制作, とねっこ, 藤本浩二, とねぐら">
+  <meta property="og:title" content="とねっこ | あなたのそばで、手を動かす人。">
+  <meta property="og:description" content="マッサージも、Web制作も、暮らしの手仕事も。全部「手を動かすこと」でつながっている人のサイト。">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1576287251622-0eb2f24ae759?w=1200&q=80">
+  <meta property="og:type" content="website">
+  <title>とねっこ | あなたのそばで、手を動かす人。</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤲</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-deepbrown: #3A2618;
+      --color-brown:     #7A5C44;
+      --color-tan:       #9B7E5A;
+      --color-cream:     #F5EDE0;
+      --color-sage:      #7A9E7E;
+      --font-sans:  'Noto Sans JP', sans-serif;
+      --font-serif: 'Noto Serif JP', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body { background-color: var(--color-cream); color: var(--color-deepbrown); }
+
+    /* ---- Navigation ---- */
+    #navbar { transition: background 0.4s ease, box-shadow 0.4s ease; }
+    #navbar.scrolled {
+      background: rgba(58,38,24,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .nav-link {
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: currentColor;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ---- Section title decoration ---- */
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 36px; height: 2px;
+      background: var(--color-tan);
+      margin: 10px auto 0;
+    }
+
+    /* ---- Float animation for lifestyle cards ---- */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    .lifestyle-card:hover { animation: float 2.4s ease-in-out infinite; }
+
+    /* ---- Column hover: image scale + gradient overlay ---- */
+    .column-card { overflow: hidden; cursor: pointer; }
+    .column-card .col-img {
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .column-card:hover .col-img { transform: scale(1.08); }
+    .column-card .col-overlay {
+      background: linear-gradient(to top, rgba(58,38,24,0.88) 0%, rgba(58,38,24,0.1) 55%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .column-card:hover .col-overlay { opacity: 1; }
+
+    /* ---- Modal ---- */
+    #modal-backdrop {
+      transition: opacity 0.3s ease;
+    }
+    #modal-box {
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+    #modal-backdrop.modal-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #modal-backdrop.modal-hidden #modal-box {
+      transform: scale(0.88) translateY(20px);
+      opacity: 0;
+    }
+
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--color-cream); }
+    ::-webkit-scrollbar-thumb { background: var(--color-tan); border-radius: 3px; }
+
+    /* ---- Hero parallax overlay gradient ---- */
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(58,38,24,0.5) 0%,
+        rgba(58,38,24,0.45) 60%,
+        rgba(58,38,24,0.7) 100%
+      );
+    }
+
+    /* ---- Pulse dot for "受付中" badge ---- */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+    .pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+    /* ---- Contact form ---- */
+    .form-input {
+      width: 100%;
+      border: 1px solid rgba(154,126,90,0.35);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: white;
+      color: var(--color-deepbrown);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--color-sage);
+      box-shadow: 0 0 0 3px rgba(122,158,126,0.15);
+    }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav id="navbar" aria-label="メインナビゲーション" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-xl font-bold text-white" id="nav-logo">とねっこ</a>
+
+      <!-- Desktop -->
+      <ul class="hidden lg:flex items-center gap-8 text-sm text-white" id="nav-desktop">
+        <li><a href="#about"      class="nav-link">について</a></li>
+        <li><a href="#services"   class="nav-link">サービス</a></li>
+        <li><a href="#lifestyle"  class="nav-link">暮らし</a></li>
+        <li><a href="#column"     class="nav-link">読みもの</a></li>
+        <li>
+          <a href="#contact" class="px-5 py-2 border border-white/70 rounded-full text-white hover:bg-white hover:text-deepbrown transition-all duration-200">
+            お問い合わせ
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く"
+              class="lg:hidden text-white p-1">
+        <i data-lucide="menu" class="w-6 h-6" id="icon-menu"></i>
+        <i data-lucide="x"    class="w-6 h-6 hidden" id="icon-close"></i>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden" aria-hidden="true">
+      <ul class="flex flex-col gap-1 px-6 py-4 bg-deepbrown/95 backdrop-blur-md text-white text-sm border-t border-white/10">
+        <li><a href="#about"     class="block py-3 border-b border-white/10" onclick="closeMobile()">について</a></li>
+        <li><a href="#services"  class="block py-3 border-b border-white/10" onclick="closeMobile()">サービス</a></li>
+        <li><a href="#lifestyle" class="block py-3 border-b border-white/10" onclick="closeMobile()">暮らし</a></li>
+        <li><a href="#column"    class="block py-3 border-b border-white/10" onclick="closeMobile()">読みもの</a></li>
+        <li><a href="#contact"   class="block py-3" onclick="closeMobile()">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+           style="background-image: url('https://images.unsplash.com/photo-1576287251622-0eb2f24ae759?ixlib=rb-4.1.0&w=1600&q=80&fm=webp&fit=crop');">
+      </div>
+      <div class="absolute inset-0 hero-overlay"></div>
+
+      <div class="relative z-10 text-center text-white px-6 max-w-3xl mx-auto">
+        <p class="text-xs tracking-[0.4em] mb-6 text-cream/70 animate__animated animate__fadeIn animate__delay-1s uppercase">
+          Tonecco / 藤本浩二
+        </p>
+        <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate__animated animate__fadeInUp">
+          あなたのそばで、<br>手を動かす人。
+        </h1>
+        <p class="text-lg md:text-xl text-cream/85 mb-10 leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
+          マッサージも、Web制作も、暮らしの手仕事も。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-2s">
+          <a href="#contact"
+             class="px-8 py-3.5 bg-sage text-white rounded-full font-medium hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-sage/30">
+            ウェブ制作を依頼する
+          </a>
+          <a href="#about"
+             class="px-8 py-3.5 border border-white/60 text-white rounded-full font-medium hover:bg-white/10 transition-all">
+            もっと見る
+          </a>
+        </div>
+      </div>
+
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce">
+        <i data-lucide="chevron-down" class="w-6 h-6"></i>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="py-24 px-6">
+      <div class="max-w-5xl mx-auto">
+
+        <!-- Profile block -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          <div data-aos="fade-right" class="relative">
+            <img src="https://images.unsplash.com/photo-1611073615830-9f76902c10fe?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx0aGFpJTIwbWFzc2FnZSUyMGhhbmRzJTIwcmVsYXhhdGlvbnxlbnwwfDB8fHwxNzc4Mjk2ODIyfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                 alt="施術の様子"
+                 loading="lazy" decoding="async"
+                 class="w-full h-80 lg:h-[420px] object-cover rounded-2xl shadow-xl">
+            <div class="absolute -bottom-4 -right-4 w-28 h-28 bg-tan/15 rounded-2xl -z-10"></div>
+            <div class="absolute -top-3 -left-3 w-16 h-16 bg-sage/15 rounded-xl -z-10"></div>
+          </div>
+
+          <div data-aos="fade-left" data-aos-delay="100">
+            <p class="text-xs tracking-[0.35em] text-tan mb-4 uppercase">About</p>
+            <h2 class="font-serif text-3xl font-bold text-deepbrown mb-6">藤本浩二について</h2>
+            <p class="text-deepbrown/80 leading-loose mb-5">
+              タイ古式マッサージのセラピストとして、「とねぐら」で施術しています。もう一つの顔として、Claude Codeを使ったウェブ制作の代行もしています。
+            </p>
+            <p class="text-deepbrown/80 leading-loose mb-5">
+              マッサージという「手で触れる仕事」と、コードという「手で形にする仕事」。どちらも、相手の話をじっくり聞いて、丁寧に手を動かすことが原点です。
+            </p>
+            <p class="text-deepbrown/80 leading-loose">
+              石鹸を手でこね、プリンを丁寧に仕込み、木材を削って家具を作る。そういう「手が喜ぶ時間」を大切にしながら日々を送っています。
+            </p>
+          </div>
+        </div>
+
+        <!-- Inline column: マッサージについて -->
+        <div data-aos="fade-up" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-cream/80">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-xs tracking-[0.3em] text-tan uppercase">Column</span>
+            <span class="text-xs text-deepbrown/40 bg-cream px-2 py-0.5 rounded-full">2分で読めます</span>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-deepbrown mb-7">
+            タイ古式マッサージが、こんなにも気持ちいい理由
+          </h3>
+          <div class="space-y-4 text-deepbrown/80 leading-loose text-[0.95rem]">
+            <p>タイ古式マッサージは、「着衣のまま受けられるヨガ」とも呼ばれます。施術者が全身を使って圧をかけ、ストレッチを組み合わせることで、筋肉の深部にアプローチします。</p>
+            <p>一般的なオイルマッサージが「表面の緊張をほぐす」ものだとすれば、タイ古式は「体の構造ごと整える」ようなイメージです。股関節まわりの硬さ、背中のこわばり、足首の重さ——こうした「なんとなく不調」の原因は、日常の姿勢や動きのクセが積み重なったものです。タイ古式はそこに直接働きかけます。</p>
+            <p>施術を受けた後、多くの方が「体が軽い」「呼吸がしやすい」と感じてくださいます。それは筋肉が柔らかくなるだけでなく、自律神経が整い、内側からリラックスしているから。</p>
+            <p>私がセラピストを続けているのは、この「変化の瞬間」に立ち会えるからかもしれません。施術台の上で、ふっと力が抜けるあの瞬間。言葉にならないけれど、確かに何かが変わっていく。そういう時間を、一緒に作っていきたいと思っています。</p>
+            <p class="text-right text-sm text-tan italic">— 藤本浩二</p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-cream">
+            <a href="https://tone-gura.tonecco.net/" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-sm text-sage hover:text-tan transition-colors font-medium">
+              とねぐらのページへ
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" class="py-24 px-6 bg-deepbrown/[0.04]">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Services</p>
+          <h2 class="font-serif text-3xl font-bold text-deepbrown section-title">手を動かす、3つの仕事</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Massage -->
+          <a href="https://tone-gura.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             data-aos="fade-up" data-aos-delay="0"
+             class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-cream">
+            <div class="w-12 h-12 bg-tan/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-tan/20 transition-colors">
+              <i data-lucide="hand" class="w-6 h-6 text-tan"></i>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-deepbrown mb-3">タイ古式マッサージ</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">着衣のまま全身をほぐす、体が喜ぶ時間を。とねぐらにてお待ちしています。</p>
+            <span class="text-xs text-tan/80 flex items-center gap-1">
+              tone-gura.tonecco.net
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </span>
+          </a>
+
+          <!-- Web -->
+          <a href="https://one-page.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             data-aos="fade-up" data-aos-delay="100"
+             class="group bg-deepbrown rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+            <!-- 受付中バッジ -->
+            <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-sage/20 px-2.5 py-1 rounded-full">
+              <span class="w-1.5 h-1.5 bg-sage rounded-full pulse-dot"></span>
+              <span class="text-xs text-sage font-medium">無料試作品 受付中</span>
+            </div>
+            <div class="w-12 h-12 bg-cream/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cream/20 transition-colors">
+              <i data-lucide="monitor" class="w-6 h-6 text-cream"></i>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-cream mb-3">とねっこウェブ制作</h3>
+            <p class="text-sm text-cream/70 leading-relaxed mb-6">あなたの言葉で、サイトを作ります。質問に答えるだけで無料試作品が見られます。</p>
+            <span class="text-xs text-cream/40 flex items-center gap-1">
+              one-page.tonecco.net
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </span>
+          </a>
+
+          <!-- Recipe -->
+          <a href="https://recipe.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             data-aos="fade-up" data-aos-delay="200"
+             class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-cream">
+            <div class="w-12 h-12 bg-sage/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-sage/20 transition-colors">
+              <i data-lucide="utensils" class="w-6 h-6 text-sage"></i>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-deepbrown mb-3">じぶんフィットレシピ</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed mb-6">自分の体に合うよう調整した、とっておきのレシピを公開しています。</p>
+            <span class="text-xs text-tan/80 flex items-center gap-1">
+              recipe.tonecco.net
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WEB FEATURES ===================== -->
+    <section id="web-features" class="py-24 px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Web Production</p>
+          <h2 class="font-serif text-3xl font-bold text-deepbrown section-title">あなたの言葉で、サイトを作ります。</h2>
+          <p class="mt-6 text-deepbrown/70 max-w-xl mx-auto leading-relaxed text-sm">
+            マッサージのセラピストがウェブを作る——不思議に思うかもしれません。でも、どちらも「あなたの話をよく聞くこと」から始まります。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+          <div data-aos="fade-up" data-aos-delay="0" class="text-center px-4">
+            <div class="w-16 h-16 bg-cream rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+              <i data-lucide="coffee" class="w-7 h-7 text-brown"></i>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-deepbrown mb-3">マッサージ後に<br>対面で相談できる</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed">体がほぐれたリラックス状態で、じっくりお話できます。「こんなサイトが欲しい」という言葉を、その場で引き出します。</p>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="100" class="text-center px-4">
+            <div class="w-16 h-16 bg-cream rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+              <i data-lucide="gift" class="w-7 h-7 text-sage"></i>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-deepbrown mb-3">質問に答えるだけで<br>無料試作品が見られる</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed">専門知識は不要。いくつかの質問に答えていただくと、無料でホームページの試作品をお作りします。</p>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="200" class="text-center px-4">
+            <div class="w-16 h-16 bg-cream rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+              <i data-lucide="pen-line" class="w-7 h-7 text-tan"></i>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-deepbrown mb-3">あなた独自の言葉で<br>サイトを作る</h3>
+            <p class="text-sm text-deepbrown/70 leading-relaxed">テンプレートではなく、あなたのお客様に届く言葉を一緒に考えます。あなただけのサイトを作ります。</p>
+          </div>
+        </div>
+
+        <div class="text-center" data-aos="fade-up">
+          <a href="https://one-page.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-8 py-4 bg-sage text-white rounded-full font-medium hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-sage/25">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            無料試作品を申し込む
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LIFESTYLE ===================== -->
+    <section id="lifestyle" class="py-24 px-6 bg-deepbrown">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Lifestyle</p>
+          <h2 class="font-serif text-3xl font-bold text-cream">手を動かす、毎日。</h2>
+          <div class="w-9 h-0.5 bg-tan mx-auto mt-3"></div>
+          <p class="mt-6 text-cream/55 max-w-xl mx-auto leading-relaxed text-sm">
+            朝から晩まで仕事に追われるのではなく、自分の体や感覚に丁寧に向き合いながら生きています。それぞれをタップすると、もう少し詳しく読めます。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+
+          <!-- 手作り石鹸 -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('soap')" role="button" tabindex="0" aria-label="手作り石鹸の詳細を見る"
+               data-aos="fade-up" data-aos-delay="0">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1546552768-9e3a94b38a59?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHNvYXAlMjBuYXR1cmFsJTIwb3JnYW5pY3xlbnwwfDB8fHwxNzc4Mjk2ODI3fDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="手作り石鹸"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">Handmade Soap</p>
+                  <h3 class="font-serif text-white font-bold">手作り石鹸</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 呼吸の瞑想 -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('meditation')" role="button" tabindex="0" aria-label="呼吸の瞑想の詳細を見る"
+               data-aos="fade-up" data-aos-delay="80">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1775133262755-254aeaa47843?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHxtZWRpdGF0aW9uJTIwYnJlYXRoaW5nJTIwcGVhY2VmdWx8ZW58MHwwfHx8MTc3ODI5NjgzMHww&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="呼吸の瞑想"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">Anapanasati</p>
+                  <h3 class="font-serif text-white font-bold">呼吸の瞑想</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- プリン作り -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('pudding')" role="button" tabindex="0" aria-label="プリン作りの詳細を見る"
+               data-aos="fade-up" data-aos-delay="160">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1768203635611-c8542d3d1c6f?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHxjdXN0YXJkJTIwcHVkZGluZyUyMGRlc3NlcnQlMjBob21lbWFkZXxlbnwwfDB8fHwxNzc4Mjk2ODMyfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="プリン作り"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">Pudding</p>
+                  <h3 class="font-serif text-white font-bold">プリン作り</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ヨガ -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('yoga')" role="button" tabindex="0" aria-label="ヨガの詳細を見る"
+               data-aos="fade-up" data-aos-delay="0">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1655970580622-4a547789c850?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx5b2dhJTIwbW9ybmluZyUyMHByYWN0aWNlfGVufDB8MHx8fDE3NzgyOTY4MzV8MA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="ヨガ"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">Yoga</p>
+                  <h3 class="font-serif text-white font-bold">ヨガ</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- あかり作り -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('light')" role="button" tabindex="0" aria-label="あかり作りの詳細を見る"
+               data-aos="fade-up" data-aos-delay="80">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1605302976792-3f694239f3df?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx3YXJtJTIwY2FuZGxlJTIwbGlnaHQlMjBjcmFmdHN8ZW58MHwwfHx8MTc3ODI5Njg0Nnww&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="あかり作り"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">Lighting</p>
+                  <h3 class="font-serif text-white font-bold">あかり作り</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DIY -->
+          <div class="lifestyle-card cursor-pointer rounded-2xl overflow-hidden group"
+               onclick="openModal('diy')" role="button" tabindex="0" aria-label="DIYの詳細を見る"
+               data-aos="fade-up" data-aos-delay="160">
+            <div class="relative h-44 md:h-52">
+              <img src="https://images.unsplash.com/photo-1496053104232-e7c7a99dafc0?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx3b29kd29ya2luZyUyMERJWSUyMGZ1cm5pdHVyZSUyMGNyYWZ0c3xlbnwwfDB8fHwxNzc4Mjk2ODUwfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="DIY"
+                   loading="lazy" decoding="async"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-deepbrown/40 flex items-end p-4">
+                <div>
+                  <p class="text-cream/60 text-xs mb-0.5">DIY</p>
+                  <h3 class="font-serif text-white font-bold">DIY（家具づくり）</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COLUMN ===================== -->
+    <section id="column" class="py-24 px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Column</p>
+          <h2 class="font-serif text-3xl font-bold text-deepbrown section-title">読みもの</h2>
+          <p class="mt-6 text-deepbrown/60 text-sm">画像をタップすると全文が読めます</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- Column 1 -->
+          <div class="column-card bg-white rounded-2xl shadow-sm overflow-hidden border border-cream hover:shadow-lg transition-shadow duration-300"
+               onclick="openModal('col1')" role="button" tabindex="0" aria-label="コラム1の詳細を見る"
+               data-aos="fade-up" data-aos-delay="0">
+            <div class="relative h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1611073615848-d6ff6215931f?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHx0aGFpJTIwbWFzc2FnZSUyMHRoZXJhcHklMjB3ZWxsbmVzc3xlbnwwfDB8fHwxNzc4Mjk2ODUzfDA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="タイ古式マッサージとは"
+                   loading="lazy" decoding="async"
+                   class="col-img w-full h-full object-cover">
+              <div class="col-overlay absolute inset-0 flex items-end p-4">
+                <span class="text-white text-sm font-medium">続きを読む →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-xs text-tan mb-2">マッサージ</p>
+              <h3 class="font-serif text-lg font-bold text-deepbrown mb-2">タイ古式マッサージとは何か</h3>
+              <p class="text-sm text-deepbrown/60 leading-relaxed">ヨガとマッサージを組み合わせた、タイの伝統的な体の整え方について。</p>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="column-card bg-white rounded-2xl shadow-sm overflow-hidden border border-cream hover:shadow-lg transition-shadow duration-300"
+               onclick="openModal('col2')" role="button" tabindex="0" aria-label="コラム2の詳細を見る"
+               data-aos="fade-up" data-aos-delay="100">
+            <div class="relative h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1763888834616-ab7a9902c444?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHxoYW5kY3JhZnQlMjBhcnRpc2FuJTIwbGlmZXN0eWxlfGVufDB8MHx8fDE3NzgyOTY4NTZ8MA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="手仕事と現代生活"
+                   loading="lazy" decoding="async"
+                   class="col-img w-full h-full object-cover">
+              <div class="col-overlay absolute inset-0 flex items-end p-4">
+                <span class="text-white text-sm font-medium">続きを読む →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-xs text-tan mb-2">暮らし</p>
+              <h3 class="font-serif text-lg font-bold text-deepbrown mb-2">手仕事が、現代に必要な理由</h3>
+              <p class="text-sm text-deepbrown/60 leading-relaxed">デジタルが当たり前になった今、なぜ「手を動かすこと」が大切なのか。</p>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="column-card bg-white rounded-2xl shadow-sm overflow-hidden border border-cream hover:shadow-lg transition-shadow duration-300"
+               onclick="openModal('col3')" role="button" tabindex="0" aria-label="コラム3の詳細を見る"
+               data-aos="fade-up" data-aos-delay="200">
+            <div class="relative h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1690383921891-3f0a7567d815?ixid=M3w4MzEwNTN8MHwxfHNlYXJjaHwxfHxzbWFsbCUyMGJ1c2luZXNzJTIwd2ViJTIwZGVzaWduJTIwd29ya3NwYWNlfGVufDB8MHx8fDE3NzgyOTY4NTl8MA&ixlib=rb-4.1.0&w=800&q=80&fm=webp&fit=crop"
+                   alt="小さな商売とウェブ"
+                   loading="lazy" decoding="async"
+                   class="col-img w-full h-full object-cover">
+              <div class="col-overlay absolute inset-0 flex items-end p-4">
+                <span class="text-white text-sm font-medium">続きを読む →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-xs text-tan mb-2">ウェブ制作</p>
+              <h3 class="font-serif text-lg font-bold text-deepbrown mb-2">小さな商売に、ウェブサイトは必要か</h3>
+              <p class="text-sm text-deepbrown/60 leading-relaxed">SNSで十分？口コミだけでいい？小さな店舗・個人がウェブを持つ意味。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="py-24 px-6 bg-deepbrown/[0.04]">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-12" data-aos="fade-up">
+          <p class="text-xs tracking-[0.35em] text-tan mb-3 uppercase">Contact</p>
+          <h2 class="font-serif text-3xl font-bold text-deepbrown section-title">お問い合わせ</h2>
+          <p class="mt-6 text-deepbrown/70 leading-relaxed text-sm">
+            ウェブ制作のご相談、マッサージのご予約、その他なんでもお気軽にどうぞ。<br>
+            2営業日以内にご返信いたします。
+          </p>
+        </div>
+
+        <form id="contact-form" novalidate data-aos="fade-up" data-aos-delay="100">
+          <div class="space-y-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-deepbrown mb-1.5">お名前 <span class="text-sage">*</span></label>
+              <input type="text" id="name" name="name" required placeholder="山田 花子"
+                     class="form-input">
+              <p class="text-xs text-red-400 mt-1 hidden" id="name-error">お名前を入力してください</p>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-deepbrown mb-1.5">メールアドレス <span class="text-sage">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="example@email.com"
+                     class="form-input">
+              <p class="text-xs text-red-400 mt-1 hidden" id="email-error">正しいメールアドレスを入力してください</p>
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-medium text-deepbrown mb-1.5">件名</label>
+              <input type="text" id="subject" name="subject" placeholder="ウェブ制作のご相談"
+                     class="form-input">
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-deepbrown mb-1.5">メッセージ <span class="text-sage">*</span></label>
+              <textarea id="message" name="message" required rows="5"
+                        placeholder="お気軽にご相談ください。"
+                        class="form-input resize-none"></textarea>
+              <p class="text-xs text-red-400 mt-1 hidden" id="message-error">メッセージを入力してください</p>
+            </div>
+
+            <button type="submit"
+                    class="w-full py-4 bg-deepbrown text-cream rounded-full font-medium hover:bg-brown transition-all duration-200 hover:-translate-y-0.5 shadow-md">
+              送信する
+            </button>
+          </div>
+        </form>
+
+        <!-- Thank you message -->
+        <div id="contact-thanks" class="hidden text-center py-12">
+          <div class="w-16 h-16 bg-sage/15 rounded-full flex items-center justify-center mx-auto mb-5">
+            <i data-lucide="check" class="w-8 h-8 text-sage"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-deepbrown mb-3">ありがとうございます</h3>
+          <p class="text-deepbrown/70 leading-relaxed text-sm">メッセージを受け取りました。<br>2営業日以内にご返信いたします。</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-deepbrown text-cream/70 py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div>
+          <p class="font-serif text-2xl font-bold text-cream mb-2">とねっこ</p>
+          <p class="text-sm leading-relaxed">あなたのそばで、手を動かす人。</p>
+        </div>
+        <nav aria-label="フッターナビゲーション">
+          <ul class="flex flex-wrap gap-6 text-sm">
+            <li><a href="#about"      class="hover:text-cream transition-colors">について</a></li>
+            <li><a href="#services"   class="hover:text-cream transition-colors">サービス</a></li>
+            <li><a href="#lifestyle"  class="hover:text-cream transition-colors">暮らし</a></li>
+            <li><a href="#column"     class="hover:text-cream transition-colors">読みもの</a></li>
+            <li><a href="#contact"    class="hover:text-cream transition-colors">お問い合わせ</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="mt-8 pt-6 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-cream/40">
+        <p>© 2026 とねっこ / 藤本浩二. All rights reserved.</p>
+        <div class="flex gap-5">
+          <a href="https://tone-gura.tonecco.net/" target="_blank" rel="noopener noreferrer" class="hover:text-cream/70 transition-colors">とねぐら</a>
+          <a href="https://one-page.tonecco.net/"  target="_blank" rel="noopener noreferrer" class="hover:text-cream/70 transition-colors">ウェブ制作</a>
+          <a href="https://recipe.tonecco.net/"    target="_blank" rel="noopener noreferrer" class="hover:text-cream/70 transition-colors">レシピ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL ===================== -->
+  <div id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+       class="modal-hidden fixed inset-0 z-[100] flex items-center justify-center p-4"
+       style="background: rgba(58,38,24,0.75); backdrop-filter: blur(6px);">
+    <div id="modal-box" class="bg-cream rounded-3xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto">
+      <div class="sticky top-0 bg-cream rounded-t-3xl flex items-center justify-between px-6 pt-6 pb-3 z-10">
+        <p class="text-xs tracking-widest text-tan uppercase" id="modal-category"></p>
+        <button onclick="closeModal()" aria-label="閉じる"
+                class="w-8 h-8 bg-deepbrown/10 rounded-full flex items-center justify-center hover:bg-deepbrown/20 transition-colors">
+          <i data-lucide="x" class="w-4 h-4 text-deepbrown"></i>
+        </button>
+      </div>
+      <div class="px-6 pb-8">
+        <h2 id="modal-title" class="font-serif text-xl font-bold text-deepbrown mb-5"></h2>
+        <div id="modal-body" class="text-deepbrown/80 leading-loose text-sm space-y-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL DATA ===================== -->
+  <script>
+    const MODAL_DATA = {
+      // Lifestyle modals
+      soap: {
+        category: 'Lifestyle',
+        title: '手作り石鹸のこと',
+        body: `<p>石鹸を作り始めたのは、数年前のことです。市販の石鹸に含まれる成分が気になり始め、「じゃあ自分で作ってみよう」と思ったのがきっかけでした。</p>
+<p>石鹸は、苛性ソーダと植物オイルを混ぜ合わせるところから始まります。最初は化学反応の怖さもありましたが、慣れてくると「どのオイルを配合するか」「どんな香りにするか」を考えること自体が楽しくなってきました。</p>
+<p>できあがった石鹸を使い始められるのは、仕込みから1〜2ヶ月後。熟成を待つこの時間も、石鹸づくりの一部です。お風呂で使い始めると、肌がしっとりして「悦んでいる」感じがする。その充足感が、また次を作りたくなる動機になっています。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      meditation: {
+        category: 'Lifestyle',
+        title: 'アーナーパーナサティ（呼吸の瞑想）のこと',
+        body: `<p>アーナーパーナサティとは、呼吸に意識を向けることで「今、ここ」に戻ってくる瞑想の実践です。パーリ語で「入る息・出る息への気づき」という意味があります。</p>
+<p>やることはシンプルで、ただ呼吸を観察するだけ。吸う息が鼻の入り口を通る感覚、胸やお腹が膨らむ感覚、息が出ていく感覚……それだけに集中します。</p>
+<p>やってみると、いかに自分の思考があちこちに飛んでいるかがわかります。でもそれに気づいた瞬間、また呼吸に戻ればいい。気づくことと、戻ること——それを繰り返すだけです。</p>
+<p>マッサージの仕事に通じるものがある気がしています。どちらも「今、目の前にあるものに、ちゃんと触れること」が大事だから。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      pudding: {
+        category: 'Lifestyle',
+        title: 'プリン作りのこと',
+        body: `<p>子どもの頃からプリンが好きでした。あの「つるん」とした食感と、カラメルのほろ苦さ。「いつか自分で作れるようになりたい」と漠然と思い続けて、ようやく挑戦したのはここ数年のことです。</p>
+<p>プリン作りで大事なのは、温度管理です。卵液をゆっくり加熱しすぎると「す」が入る（気泡ができてザラザラになる）。蒸し時間が長すぎてもだめ。最初は何度も失敗しました。</p>
+<p>でも、うまくいったときのあの「つるん」は格別です。市販のものとは違う、素材の味がするプリン。自分で作ったということが、さらに美味しくしてくれる。</p>
+<p>今は卵の配合や牛乳と生クリームの比率を少しずつ変えながら、「自分の好きなプリン」を研究中です。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      yoga: {
+        category: 'Lifestyle',
+        title: 'ヨガのこと',
+        body: `<p>ヨガを始めたのは、タイ古式マッサージの修行中でした。施術に使う体を整えるために、と思って始めたのがきっかけです。</p>
+<p>最初はポーズの形を追うことに必死でしたが、続けるうちに「呼吸と動きを合わせること」の面白さがわかってきました。息を吐きながら体を前に倒す、吸いながら背筋を伸ばす——その繰り返しの中で、体の感覚がどんどん細かくなっていく。</p>
+<p>ヨガとアーナーパーナサティ（呼吸の瞑想）は、私の中で自然につながっています。どちらも「今の体・今の息」に意識を向けることが基本にあるから。</p>
+<p>毎朝続けるほど律儀ではないですが、体が重いと感じた朝には自然とマットを広げています。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      light: {
+        category: 'Lifestyle',
+        title: 'あかり作りのこと',
+        body: `<p>光が好きです。特に、やわらかくてあたたかい光が。</p>
+<p>「あかり作り」といっても、大げさなものではありません。キャンドルを作ったり、照明器具を手作りしたり、既製品のシェードに細工をしたり。「この部屋に、どんな光が合うか」を考えながら手を動かす時間です。</p>
+<p>光は、空間の印象を大きく変えます。同じ部屋でも、光の強さや色温度、当て方が変わるだけで、まったく違う雰囲気になる。それが面白くて、気づけば自分でコントロールしたくなっていました。</p>
+<p>施術室の照明も、何度も調整しました。マッサージ中の「あかり」は、リラックスを助ける重要な要素だと思っているから。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      diy: {
+        category: 'Lifestyle',
+        title: 'DIY（家具づくり）のこと',
+        body: `<p>木材を手で触るのが好きです。サンドペーパーで磨いていくと、ざらざらがなくなってすべすべになる。その過程が、なんとも言えず気持ちいい。</p>
+<p>最初に作ったのは小さな棚でした。設計から始まり、木材を選んで、切って、組み立てて、仕上げる。一つひとつの工程に集中していると、他のことを考える余裕がなくなります。それが心地よかった。</p>
+<p>市販の家具には出せない「自分のサイズ感」があります。「もう少し低かったら」「もう少し奥行きがあったら」——そういうわがままを、全部叶えてくれるのが手作りです。</p>
+<p>ウェブ制作も似ています。テンプレートではなく、あなたに合ったものを作る。どちらも「ぴったりを探す」楽しさがある仕事だと思っています。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      // Column modals
+      col1: {
+        category: 'Column / マッサージ',
+        title: 'タイ古式マッサージとは何か',
+        body: `<p>タイ古式マッサージは、2500年以上前にインドから伝わったとされる伝統的な施術法です。タイでは「ヌアット・タイ」と呼ばれ、ユネスコの無形文化遺産にも登録されています。</p>
+<p>最大の特徴は「着衣で行う」こと。オイルを使わず、施術者が手・肘・膝・足を使って全身にアプローチします。もう一つの特徴は「ストレッチを組み合わせる」こと。施術者がパートナーとなり、受ける人の体を無理なく動かしていきます。そのため「受け身のヨガ」とも呼ばれます。</p>
+<p>施術のベースにあるのは、タイ伝統医学の「セン」という概念。体の中を走るエネルギーラインのようなもので、そこへの圧刺激によって体のバランスを整えると考えられています。</p>
+<p>私がタイ古式を学んだのは、体を使う仕事をしながら自分自身の体も整えたかったから。施術を学ぶ中で、人の体の不思議さと可能性に何度も驚かされました。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      col2: {
+        category: 'Column / 暮らし',
+        title: '手仕事が、現代に必要な理由',
+        body: `<p>デジタルが当たり前になった時代に、なぜ「手を動かすこと」が大切なのか。私がこの問いを考えるようになったのは、スマホをずっと眺めた後の「なんとなく満たされない感覚」に気づいてからです。</p>
+<p>手仕事には、達成感の質が違う気がします。石鹸が固まる、プリンがうまくできる、木の棚が完成する——それは画面の向こうで起きることではなく、自分の手と体が直接生み出したもの。その実感は、デジタルの「いいね」では補えない何かがあります。</p>
+<p>また、手を動かしている間は「考えすぎない」時間になります。必要な動作に集中するから、余計な思考が静まる。それが結果的に、心のリセットになっている。</p>
+<p>効率を求めすぎる毎日の中で、あえて時間と手間をかけることに価値がある。そう感じています。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      },
+      col3: {
+        category: 'Column / ウェブ制作',
+        title: '小さな商売に、ウェブサイトは必要か',
+        body: `<p>「Instagramだけでいいんじゃないか」「口コミだけで十分だ」——そう言う方も多いです。確かに、SNSだけで繁盛しているお店もあります。では、ウェブサイトは本当に不要なのでしょうか。</p>
+<p>私が思うのは、SNSとウェブサイトでは「役割が違う」ということです。SNSは「今日の私」を見てもらう場所。ウェブサイトは「いつでもある、あなたの場所」です。</p>
+<p>名刺を渡したお客様が、家に帰ってから検索する。その時に、ちゃんとした場所があるかどうか。SNSは流れていくけれど、ウェブサイトは残ります。</p>
+<p>特に「信頼が大事な商売」（施術、相談、オーダーメイド……）では、ウェブサイトが「この人は本物だ」という安心感を与えてくれます。私自身もそれを実感してから、ウェブ制作を始めました。</p>
+<p class="text-tan text-xs">※ ダミーコンテンツです</p>`
+      }
+    };
+  </script>
+
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+    // ---- Init ----
+    lucide.createIcons();
+    AOS.init({ duration: 700, easing: 'ease-out', once: true, offset: 60 });
+
+    // ---- Navigation scroll ----
+    const navbar = document.getElementById('navbar');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          navbar.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // ---- Mobile menu ----
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', isOpen);
+      mobileMenu.setAttribute('aria-hidden', isOpen);
+      menuBtn.setAttribute('aria-expanded', !isOpen);
+      iconMenu.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+    });
+
+    function closeMobile() {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      iconMenu.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+
+    // ---- Modal ----
+    const backdrop = document.getElementById('modal-backdrop');
+    const modalTitle    = document.getElementById('modal-title');
+    const modalCategory = document.getElementById('modal-category');
+    const modalBody     = document.getElementById('modal-body');
+
+    function openModal(id) {
+      const data = MODAL_DATA[id];
+      if (!data) return;
+      modalCategory.textContent = data.category;
+      modalTitle.textContent    = data.title;
+      modalBody.innerHTML       = data.body;
+      backdrop.classList.remove('modal-hidden');
+      document.body.style.overflow = 'hidden';
+      // Re-init lucide icons if any were added
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      backdrop.classList.add('modal-hidden');
+      document.body.style.overflow = '';
+    }
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Keyboard activation for lifestyle/column cards
+    document.querySelectorAll('[role="button"]').forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+
+    // ---- Contact form ----
+    const form   = document.getElementById('contact-form');
+    const thanks = document.getElementById('contact-thanks');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const name    = document.getElementById('name');
+      const email   = document.getElementById('email');
+      const message = document.getElementById('message');
+
+      // Name
+      const nameErr = document.getElementById('name-error');
+      if (!name.value.trim()) {
+        nameErr.classList.remove('hidden');
+        valid = false;
+      } else {
+        nameErr.classList.add('hidden');
+      }
+
+      // Email
+      const emailErr = document.getElementById('email-error');
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim() || !emailRe.test(email.value)) {
+        emailErr.classList.remove('hidden');
+        valid = false;
+      } else {
+        emailErr.classList.add('hidden');
+      }
+
+      // Message
+      const msgErr = document.getElementById('message-error');
+      if (!message.value.trim()) {
+        msgErr.classList.remove('hidden');
+        valid = false;
+      } else {
+        msgErr.classList.add('hidden');
+      }
+
+      if (valid) {
+        form.classList.add('hidden');
+        thanks.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+</body>
+</html>

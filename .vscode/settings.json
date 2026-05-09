@@ -1,6 +1,6 @@
 {
   "liveServer.settings.root": "/public",
-  "liveServer.settings.port": 5500,
+  "liveServer.settings.port": 5504,
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
   "liveServer.settings.NoBrowser": false,
