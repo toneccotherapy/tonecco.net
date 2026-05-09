@@ -33,7 +33,7 @@ export async function onRequestPost(context) {
   const notifyHtml = `
     <div style="font-family:sans-serif; max-width:600px; margin:0 auto; color:#333;">
       <h2 style="color:#5a3e2b; border-bottom:2px solid #c9a87c; padding-bottom:8px;">
-        ウェブサイトからのお問い合わせ
+        とねっこ　ウェブサイトからのお問い合わせ
       </h2>
       <table style="width:100%; border-collapse:collapse; margin-top:16px;">
         <tr>
@@ -54,6 +54,7 @@ export async function onRequestPost(context) {
           <td style="padding:8px 12px; white-space:pre-wrap;">${escapeHtml(message.trim())}</td>
         </tr>
       </table>
+      <p style="margin-top:20px; color:#5a3e2b; font-weight:bold;">返信の対応をしてください</p>
     </div>
   `;
 
@@ -64,7 +65,7 @@ export async function onRequestPost(context) {
       </h2>
       <p>${escapeHtml(name.trim())} 様</p>
       <p>
-        このたびはtonecco therapyへお問い合わせいただき、誠にありがとうございます。<br>
+        このたびは、とねっこへお問い合わせいただき、誠にありがとうございます。<br>
         内容を確認のうえ、後ほどご連絡させていただきます。<br>
         今しばらくお待ちください。
       </p>
