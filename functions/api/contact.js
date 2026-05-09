@@ -1,12 +1,12 @@
 /**
  * Cloudflare Pages Function: POST /api/contact
- * フォームデータをBrevo APIで tonecco.therapy@gmail.com に転送する
+ * 1. 運営への通知メールを tonecco.therapy@gmail.com に送信
+ * 2. お客様への自動返信メールを送信
  * 環境変数 BREVO_API_KEY を Cloudflare Pages の設定で登録すること
  */
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  // APIキーが設定されているか確認
   if (!env.BREVO_API_KEY) {
     return jsonResponse({ error: 'Server configuration error' }, 500);
   }
@@ -20,16 +20,17 @@ export async function onRequestPost(context) {
 
   const { name, email, subject, message } = body;
 
-  // 必須フィールドチェック
   if (!name?.trim() || !email?.trim() || !message?.trim()) {
     return jsonResponse({ error: 'Missing required fields' }, 400);
   }
 
-  const mailSubject = subject?.trim()
+  const sender = { name: 'とねっこ 藤本', email: 'info@tonecco.net' };
+
+  const notifySubject = subject?.trim()
     ? `【お問い合わせ】${subject.trim()} - ${name.trim()}様より`
     : `【お問い合わせ】${name.trim()}様より`;
 
-  const htmlContent = `
+  const notifyHtml = `
     <div style="font-family:sans-serif; max-width:600px; margin:0 auto; color:#333;">
       <h2 style="color:#5a3e2b; border-bottom:2px solid #c9a87c; padding-bottom:8px;">
         ウェブサイトからのお問い合わせ
@@ -56,8 +57,32 @@ export async function onRequestPost(context) {
     </div>
   `;
 
+  const autoReplyHtml = `
+    <div style="font-family:sans-serif; max-width:600px; margin:0 auto; color:#333; line-height:1.8;">
+      <h2 style="color:#5a3e2b; border-bottom:2px solid #c9a87c; padding-bottom:8px;">
+        お問い合わせありがとうございます
+      </h2>
+      <p>${escapeHtml(name.trim())} 様</p>
+      <p>
+        このたびはtonecco therapyへお問い合わせいただき、誠にありがとうございます。<br>
+        内容を確認のうえ、後ほどご連絡させていただきます。<br>
+        今しばらくお待ちください。
+      </p>
+      <hr style="border:none; border-top:1px solid #e5ded6; margin:24px 0;">
+      <p style="color:#888; font-size:13px;">
+        ※ このメールは自動送信されています。このメールへの返信はできません。<br>
+        ご不明な点は <a href="mailto:info@tonecco.net" style="color:#5a3e2b;">info@tonecco.net</a> までご連絡ください。
+      </p>
+      <p style="color:#5a3e2b; font-size:13px; margin-top:24px;">
+        tonecco therapy<br>
+        とねっこ 藤本
+      </p>
+    </div>
+  `;
+
   try {
-    const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+    // 1. 運営への通知メール
+    const notifyRes = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
         'accept': 'application/json',
@@ -65,21 +90,40 @@ export async function onRequestPost(context) {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        sender: {
-          name: 'とねっこ 藤本',
-          email: 'info@tonecco.net',
-        },
+        sender,
         to: [{ email: 'tonecco.therapy@gmail.com', name: 'tonecco therapy' }],
         replyTo: { email: email.trim(), name: name.trim() },
-        subject: mailSubject,
-        htmlContent,
+        subject: notifySubject,
+        htmlContent: notifyHtml,
       }),
     });
 
-    if (!brevoRes.ok) {
-      const errText = await brevoRes.text();
-      console.error('Brevo API error:', errText);
+    if (!notifyRes.ok) {
+      const errText = await notifyRes.text();
+      console.error('Brevo notify error:', errText);
       return jsonResponse({ error: 'Failed to send email' }, 502);
+    }
+
+    // 2. お客様への自動返信メール
+    const replyRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': env.BREVO_API_KEY,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        sender,
+        to: [{ email: email.trim(), name: name.trim() }],
+        subject: 'お問い合わせありがとうございます【tonecco therapy】',
+        htmlContent: autoReplyHtml,
+      }),
+    });
+
+    if (!replyRes.ok) {
+      // 自動返信の失敗はログのみ（運営への通知は成功しているため）
+      const errText = await replyRes.text();
+      console.error('Brevo auto-reply error:', errText);
     }
 
     return jsonResponse({ success: true }, 200);
