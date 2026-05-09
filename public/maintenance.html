@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>メンテナンス中 | とねっこ</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤲</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-deepbrown: #3A2618;
+      --color-brown:     #7A5C44;
+      --color-tan:       #9B7E5A;
+      --color-cream:     #F5EDE0;
+      --color-sage:      #7A9E7E;
+      --font-sans:  'Noto Sans JP', sans-serif;
+      --font-serif: 'Noto Serif JP', serif;
+    }
+
+    html, body { height: 100%; }
+    body { background-color: var(--color-cream); color: var(--color-deepbrown); }
+
+    /* 手のひらアイコンのゆらぎアニメーション */
+    @keyframes sway {
+      0%, 100% { transform: rotate(-4deg); }
+      50%       { transform: rotate(4deg); }
+    }
+    .icon-sway { animation: sway 3s ease-in-out infinite; }
+
+    /* フェードイン */
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fadein       { animation: fadein 0.7s ease-out both; }
+    .fadein-d1    { animation: fadein 0.7s 0.15s ease-out both; }
+    .fadein-d2    { animation: fadein 0.7s 0.3s  ease-out both; }
+    .fadein-d3    { animation: fadein 0.7s 0.45s ease-out both; }
+
+    /* 区切り線 */
+    .divider {
+      width: 36px; height: 2px;
+      background: var(--color-tan);
+      margin: 12px auto 0;
+    }
+  </style>
+</head>
+<body class="font-sans flex flex-col min-h-screen">
+
+  <!-- ヘッダー（ロゴのみ） -->
+  <header class="py-6 px-6 text-center fadein">
+    <a href="/" class="font-serif text-xl font-bold text-deepbrown tracking-wide">とねっこ</a>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-1 flex items-center justify-center px-6 py-12">
+    <div class="max-w-md w-full text-center">
+
+      <!-- アイコン -->
+      <div class="fadein mb-8">
+        <div class="w-20 h-20 bg-tan/10 rounded-full flex items-center justify-center mx-auto">
+          <i data-lucide="wrench" class="w-9 h-9 text-tan icon-sway"></i>
+        </div>
+      </div>
+
+      <!-- タイトル -->
+      <div class="fadein-d1">
+        <p class="text-xs tracking-[0.4em] text-tan mb-4 uppercase">Maintenance</p>
+        <h1 class="font-serif text-3xl font-bold text-deepbrown mb-2">現在メンテナンス中です</h1>
+        <div class="divider"></div>
+      </div>
+
+      <!-- 説明文 -->
+      <div class="fadein-d2 mt-8 text-deepbrown/70 leading-loose text-sm space-y-3">
+        <p>ウェブサイトを更新中のため、一時的にご利用いただけません。</p>
+        <p>ご不便をおかけして、申し訳ございません。<br>もうしばらくお待ちください。</p>
+      </div>
+
+      <!-- 区切り -->
+      <div class="fadein-d2 my-8 border-t border-deepbrown/10"></div>
+
+      <!-- 連絡先 -->
+      <div class="fadein-d3 text-sm text-deepbrown/60 space-y-2">
+        <p>急ぎのご連絡はメールにてどうぞ。</p>
+        <a href="mailto:tonecco.therapy@gmail.com"
+           class="inline-flex items-center gap-1.5 text-sage hover:text-tan transition-colors font-medium">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          tonecco.therapy@gmail.com
+        </a>
+      </div>
+
+      <!-- 外部リンク（サービスは引き続き利用可能） -->
+      <div class="fadein-d3 mt-10 p-5 bg-white/60 rounded-2xl border border-deepbrown/8 text-left">
+        <p class="text-xs text-tan mb-4 tracking-widest uppercase text-center">各サービスはご利用いただけます</p>
+        <div class="space-y-3">
+          <a href="https://tone-gura.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-3 text-sm text-deepbrown/80 hover:text-deepbrown transition-colors group">
+            <div class="w-8 h-8 bg-tan/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-tan/20 transition-colors">
+              <i data-lucide="hand" class="w-4 h-4 text-tan"></i>
+            </div>
+            <div>
+              <p class="font-medium">タイ古式マッサージ「とねぐら」</p>
+              <p class="text-xs text-deepbrown/40">tone-gura.tonecco.net</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-deepbrown/30 group-hover:text-tan transition-colors"></i>
+          </a>
+
+          <a href="https://one-page.tonecco.net/" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-3 text-sm text-deepbrown/80 hover:text-deepbrown transition-colors group">
+            <div class="w-8 h-8 bg-sage/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-sage/20 transition-colors">
+              <i data-lucide="monitor" class="w-4 h-4 text-sage"></i>
+            </div>
+            <div>
+              <p class="font-medium">とねっこウェブ制作</p>
+              <p class="text-xs text-deepbrown/40">one-page.tonecco.net</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-deepbrown/30 group-hover:text-sage transition-colors"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer class="py-6 px-6 text-center text-xs text-deepbrown/30">
+    <p>© 2026 とねっこ / 藤本浩二</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>
